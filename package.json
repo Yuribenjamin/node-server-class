@@ -4,6 +4,7 @@
   "description": "Such a node server is written with ECMAScript 2015 (ES6)",
   "main": "index.js",
   "scripts": {
+	"start": "babel-node buildScript/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -1,6 +1,6 @@
-const express = require('express');
-const path = require('path');
-const open = require('open');
+import express from 'express';
+import { join } from 'path';
+import open from 'open';
 
 class Server {
 	constructor(port, app) {
@@ -8,7 +8,7 @@ class Server {
 		this.app = app;
 	}
 	core() {
-		this.app.get('/', (req, res)=>{res.sendFile(path.join(__dirname, '../src/index.html'));});
+		this.app.get('/', (req, res)=>{res.sendFile(join(__dirname, '../src/index.html'));});
 		this.app.listen(this.port,() =>{ open(`http://localhost:${this.port}`);});
 	}
 }
