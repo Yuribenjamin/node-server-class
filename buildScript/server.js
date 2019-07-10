@@ -7,26 +7,28 @@ const obs = new PerformanceObserver((items) => {
 	console.log(items.getEntries()[0].duration);
 	performance.clearMarks();
 });
+
 obs.observe({ entryTypes: ['measure'] });
 
 performance.mark('A');
 
-class Server {
-	constructor(port, app) {
-		this.port = port;
-		this.app = app;
-	}
-	core() {
-		this.app.get('/', (req, res)=>{res.sendFile(join(__dirname, '../src/index.html'));});
-		this.app.listen(this.port,() =>{ open(`http://localhost:${this.port}`);});
+function server() {
+	const port = 8000;
+	const app = express();
 
+	function core() {
+		app.get('/', (_req, res) => {
+		res.sendFile(join(__dirname, '../src/index.html'));
+		});
+		app.listen(port, () =>{
+			open(`http://localhost:${port}`);
+		});
 	}
+	return core;
 }
 
-let server = new Server(3000, express());
-server.core();
-
-
+let s = server();
+	s();
 performance.mark("B");
 performance.measure("A to B", "A", "B");
 
